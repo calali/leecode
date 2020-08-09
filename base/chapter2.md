@@ -10,7 +10,7 @@
 
 
 
-## 线性表的抽象数据类型描述
+### 线性表的抽象数据类型描述
 
 类型名称: 线性表(List)
 
@@ -30,13 +30,13 @@
 
 6. int Length(List L): 返回线性表L的长度n。
 
-## 线性表的顺序存储实现
+#### 线性表的顺序存储实现
 [线性表的顺序存储实现](./array.js)
 
-## 线性表的链式存储实现
+#### 线性表的链式存储实现
 [线性表的顺序存储实现](./linkedList.js)
 
-## 广义表（Generalized list)
+### 广义表（Generalized list)
 
 广义表是线性表的推广
 
@@ -44,4 +44,33 @@
 
 广义表中，这些元素不仅可以是单元素也可以是另一个广义表
 
-## 多重链表：链表中的节点可能同时隶属于多个链
+### 多重链表：链表中的节点可能同时隶属于多个链
+
+## 堆栈
+堆栈（Stack）：具有一定操作约束的线性表，只在一端(栈顶，Top)做插入，删除。
+
+插入数据：入栈（Push)
+
+删除数据：出栈（Pop)
+
+后入先出：Last In First Out (LIFO)
+
+数据对象集: 一个有0个或多个元素的有穷线性表
+
+操作集：长度为MaxSize的堆栈S [公式] Stack, 堆栈元素item [公式] ElementType
+
+1.Stack CreateStack(int MaxSize):生成空堆栈，其最大长度为MaxSize;
+
+2.int IsFull(Stack S, int MaxSize):判断堆栈S是否已满；
+
+3.void Push(Stack S, ElementType item):将元素item压入堆栈；
+
+4.int IsEmpty(Stack S):判断堆栈S是否为空；
+
+5.ElementType Pop(Stack S):删除并返回栈顶元素；
+
+[堆栈数组实现](./stack1.js)
+[堆栈链表实现](./stack2.js)
+
+## 队列
+[队列实现](./stack.js)
