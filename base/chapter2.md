@@ -73,4 +73,31 @@
 [堆栈链表实现](./stack2.js)
 
 ## 队列
-[队列实现](./stack.js)
+队列（Queue): 具有一定操作约束的线性表
+
+插入和删除操作：只能在一端插入，而在另一端删除（堆栈也是一个受限的线性表，堆栈的插入删除只能在一端进行，而队列分别在两端）
+
+数据插入：入队列（AddQ)
+
+数据删除：出队列（DeleteQ)
+
+先来先服务
+
+先进先出：FIFO
+
+类型名称：队列（Queue)
+
+
+
+数据对象集：一个有0个或多个元素的有穷线性表。
+
+操作集：长度为MaxSize的队列Q [公式] Queue, 队列元素item [公式] ElementType
+
+Queue CreateQueue(int MaxSize): 生成长度为MaxSize的空队列
+int IsFullQ(Queue Q, int MaxSize): 判读队列Q是否已满
+void AddQ(Queue Q, ElementType item): 将数据元素item插入队列Q中
+int IsEmptyQ(Queue Q): 判断队列Q是否为空
+ElementType DeleteQ(Queue Q): 将队头数据元素从队列中删除并返回
+
+[队列数组实现](./queue1.js)
+[队列链表实现](./queue2.js)
