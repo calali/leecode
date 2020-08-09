@@ -8,6 +8,7 @@ class List {
     }
 
     // 2. ElementType FindKth(int K, List L): 根据位序K,返回相应元素
+    // 时间复杂度O(n)
     findKth(k){
         if(k >=0 && k <this.maxsize){
             return this.array[k]
@@ -18,6 +19,7 @@ class List {
     }
 
     // 3. int Find(ElementType X, List L): 在线性表L中查找X的第一次出现位置；
+    // 时间复杂度O(n)
     find(x){
         for(var i=0;(i<this.maxsize && this.array[i] !== x);i++){
         }
@@ -25,6 +27,7 @@ class List {
     }
 
     // 4. void Insert(ElementType X, int k, List L): 在位序k前插入一个新元素X;
+    // 时间复杂度O(n)
     insert(x,k){
         if(k<0 || k >= this.maxsize){
             console.log(`位序${k}不存在`)
@@ -41,6 +44,7 @@ class List {
     }
 
     // 5. void Delete(int k, List L): 删除指定位序k的元素；
+    // 时间复杂度O(n)
     deleteKth(k){
         if(0<=k && k < this.maxsize){
             for(let i=k;i<this.maxsize;i++){
