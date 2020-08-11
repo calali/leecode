@@ -31,10 +31,10 @@
 6. int Length(List L): 返回线性表L的长度n。
 
 #### 线性表的顺序存储实现
-[线性表的顺序存储实现](./array.js)
+[线性表的数组存储实现](./array.js)
 
 #### 线性表的链式存储实现
-[线性表的顺序存储实现](./linkedList.js)
+[线性表的链表存储实现](./linkedList.js)
 
 ### 广义表（Generalized list)
 
