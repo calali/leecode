@@ -33,7 +33,7 @@ function inOderTraversal1(tree){
     const stack = []
     while (tree || stack.length) {
         while(tree){
-            tree.push(tree)
+            stack.push(tree)
             tree = tree.left
         } 
         if(stack.length){
@@ -49,7 +49,7 @@ function preOderTraversal1(tree){
     const stack = []
     while (tree || stack.length) {
         while(tree){
-            tree.push(tree)
+            stack.push(tree)
             console.log(tree.val)
             tree = tree.left
         } 
@@ -60,17 +60,37 @@ function preOderTraversal1(tree){
     }  
 }
 
-// 后序遍历
+// 后序遍历（左 右 根）
+//前序遍历（根 左  右）的逆序过程
 function postOderTraversal1(tree){
     const stack = []
     while (tree || stack.length) {
         while(tree){
-            tree.push(tree)
+            stack.push({data:tree,flag:1})
             tree = tree.left
         }
         if(stack.length){
             const item = stack.pop()
-            tree = item.right
+            if(item.flag === 1){
+                item.flag = 2
+                stack.push(item)
+                tree = item.data.right
+            }else{
+                console.log(item.data.val)
+                tree = null //FIXED ME 是否一定需要？
+            }
         }
+    }  
+}
+
+// 层序遍历
+function postOderTraversal1(tree){
+    const stack = []
+    stack.push(tree)
+    while (stack.length) {
+        const item = stack.shift()
+        console.log(item.val)
+        tree.left && stack.push(tree.left)
+        tree.right && stack.push(tree.right)
     }  
 }
