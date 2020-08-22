@@ -1,0 +1,60 @@
+//二叉搜索树的查找
+
+// 查找某一个元素
+function find(x,root){
+    //和当前元素一样大则返回这个节点
+    //比他小就走左侧继续比较
+    //比他大就走右侧继续比较
+    if(root){
+        if(x === root.val){
+            return root
+        }else if(x < root.val){
+            root = root.left
+            return find(root)
+        }else{
+            root = root.right
+            return find(root)
+        }
+    }
+    return null
+}
+
+//非尾递归实现
+function findGood(x,root){
+    //和当前元素一样大则返回这个节点
+    //比他小就走左侧继续比较
+    //比他大就走右侧继续比较
+    let node = root
+    while(node){
+        if(x === root.val){
+            return root
+        }else if(x < root.val){
+            node = root.left
+        }else{
+            node = root.right
+        }
+    }
+    return null
+}
+
+//最小值
+function findMin(root){
+    let result = null
+    while(root){
+        root = root.left
+        result = root.val
+    }
+    return result
+}
+
+function findMax(root){
+    let result = null
+    while(root){
+        root = root.right
+        result = root.val
+    }
+    return result
+}
+
+//插入
+function insert(){}
