@@ -72,3 +72,5 @@
 (二叉搜索树的操作)[./traverse2.js]
 
 
+### 平衡二叉树
+[平衡二叉树](./../image/balance.png)

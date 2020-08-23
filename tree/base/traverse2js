@@ -57,4 +57,45 @@ function findMax(root){
 }
 
 //插入
-function insert(){}
+function insert(x,root){
+    if(!root){
+        return {
+            val:x,
+            left:null,
+            right:null
+        }
+    }else{
+        if(x === root.val){
+            //什么都不做
+        }else if(x < root.val){
+            //插入左子树
+            root.left = insert(x,root.left)
+        }else{
+            root.right = insert(x,root.right)
+        }
+    }
+    return root
+}
+
+function deleteNode(x,root){
+    if(!root){
+        return null
+    }else if(x < root.val){
+        root.left = delete(x,root.left)
+    }else if (x >root.val){
+        root.right = delete(x,root.right)
+    }else{
+        //找到这个元素
+        if(root.left && root.right){
+            //找到右子树的最小元素并赋值给要删除的元素
+            const node = findMin(root)
+            root.val = node.val
+            root.right = delete(node.val,root)
+        }else if(root.left || root.right){
+            root = root.left || root.right
+        }else{
+            //要删除的是叶子节点
+            root = null
+        }
+    }
+}
