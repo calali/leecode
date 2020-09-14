@@ -2,7 +2,6 @@
 
 var list = [9,2,4,7,10,1,0,2]
 
-
 function swap(list,a,b){
     let temp = list[a]
     list[a] = list[b]
@@ -22,8 +21,9 @@ function bubble_sort(list,l){
     }
     return list
 }
-
 // console.log(bubble_sort(list,list.length))
+
+
 
 function insertion_sort(list,l){
     for(let i = 1;i<l;i++){ // 开始摸牌
@@ -38,8 +38,8 @@ function insertion_sort(list,l){
     }
     return list
 }
-
 // console.log(insertion_sort(list,list.length))
+
 
 function scanforMinPosition(list,min,max){
     // 在[min,max]里面找list的最小值并返回
@@ -60,16 +60,17 @@ function selection_sort(list,l){
 }
 // console.log(selection_sort(list,list.length))
 
-// function merge_sort(list,l){
-//    if(l === 1){
-//     return l
-//    }
+function merge_sort(list){
+    const l = list.length
+   if(l === 1){
+    return list
+   }
 
-//    const center = Math.floor((l)/2)
-//    const left = list.slice(0,center)
-//    const right = list.slice(center,l)
-//    return merge(merge_sort(left,left.length),merge_sort(right,right.length))
-// }
+   const center = Math.floor((l)/2)
+   const left = list.slice(0,center)
+   const right = list.slice(center,l)
+   return merge(merge_sort(left,left.length),merge_sort(right,right.length))
+}
 
 // // console.log(merge_sort(list,list.length))
 
@@ -77,71 +78,65 @@ function selection_sort(list,l){
 
 // let arr1 = [1,4,7,9]
 // let arr2 = [2,3,5,8]
-// function merge(left,right){
-//     let result = []
-//     let temp = 0
+function merge(left,right){
+    let result = []
+    let temp = 0
 
-//     let l = 0
-//     let r = 0
-//     let leftEnd = left.length-1
-//     let rightEnd = right.length -1
-//     //把数组的值按照从小到大放到新的数组里
-//     while(l <=leftEnd && r <= rightEnd){
-//         if(left[l] < right[r]){
-//             result[temp++] = left[l++]
-//         }else{
-//             result[temp++] = right[r++]
-//         }
-//     }
-//     while(l<=leftEnd){
-//         result[temp++] = left[l++]
-//     }
-//     while(r<= rightEnd){
-//         result[temp++] = right[r++]
-//     }
-//     return result
-// }
-// console.log(merge(arr1,arr2));
-console.log(mergeSort(list,list.length))
-
-function mergeSort(arr) {
-    const length = arr.length;
-    if (length === 1) { //递归算法的停止条件，即为判断数组长度是否为1
-        return arr;
-    }
-    const mid = Math.floor(length / 2);
-   
-    const left = arr.slice(0,  mid);
-    const right = arr.slice(mid, length);
-  
-    return merge(mergeSort(left), mergeSort(right)); //要将原始数组分割直至只有一个元素时，才开始归并
-}
-
-function merge(left, right) {
-    const result = [];
-    let il = 0;
-    let ir = 0;
-
-    //left, right本身肯定都是从小到大排好序的
-    while( il < left.length && ir < right.length) {
-        if (left[il] < right[ir]) {
-            result.push(left[il]);
-            il++;
-        } else {
-            result.push(right[ir]);
-            ir++;
+    let l = 0
+    let r = 0
+    let leftEnd = left.length-1
+    let rightEnd = right.length -1
+    //把数组的值按照从小到大放到新的数组里
+    while(l <=leftEnd && r <= rightEnd){
+        if(left[l] < right[r]){
+            result[temp++] = left[l++]
+        }else{
+            result[temp++] = right[r++]
         }
-        
     }
-
-    //不可能同时存在left和right都有剩余项的情况, 要么left要么right有剩余项, 把剩余项加进来即可
-    while (il < left.length) { 
-        result.push(left[il]);
-        il++;
+    while(l<=leftEnd){
+        result[temp++] = left[l++]
     }
-    while(ir < right.length) {
-        result.push(right[ir]);
-        ir++;
+    while(r<= rightEnd){
+        result[temp++] = right[r++]
     }
-    return result;
+    return result
 }
+// console.log(merge(arr1,arr2));
+// console.log(merge_sort(list))
+
+//归并排序的非递归写法
+function mergeSort(arr) {
+    var temp = [];//临时数组保存临时分组结果
+    for (var length = 2; length / 2 <= arr.length; length *= 2) {//分组的长度从2开始，不断按照2的倍数增加，确保至少分一组
+        for (var start = 0; start < arr.length; start += length) {//根据组内长度进行merge
+            merge(start, start + length - 1, temp);//一组的开头index,一组的末尾index,当前存数据的临时数组
+        }
+    }
+    function merge(begin, end, temp) {
+        var mid = Math.floor((begin + end) / 2);
+        var i = begin;
+        var a = mid;
+        var j = mid + 1;
+        var b = end;
+        var k = 0;
+
+        //对两个子序列按照从小到大排序到temp上
+        while (i <= a && i <= arr.length - 1 && j <= b && j <= arr.length - 1) {
+            arr[i] > arr[j] ? temp[k++] = arr[j++] : temp[k++] = arr[i++]
+        };
+        //至多有一个子序列没有完全排序到temp上，再赋值到temp上
+        while (i <= a && i <= arr.length - 1) {
+            temp[k++] = arr[i++];
+        };
+        while (j <= b && j <= arr.length - 1) {
+            temp[k++] = arr[j++];
+        };
+        //每次合并后结果存到arr上，方便下次排序在对arr进行
+        for (var kk = 0; kk < k; kk++) {
+            arr[begin + kk] = temp[kk];
+        }
+    }
+    return arr
+}
+console.log(mergeSort(list))
