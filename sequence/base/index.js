@@ -139,4 +139,30 @@ function mergeSort(arr) {
     }
     return arr
 }
-console.log(mergeSort(list))
+// console.log(mergeSort(list))
+
+function getPivot(list){
+    const val1 = list[0]
+    const val2 = list[list.length-1]
+    const center = Math.floor(list.length/2)
+    const val3 = list[center]
+
+    let result = val1
+
+    result = val1 < val2 ? val2:val1
+
+    result = result < val3 ? result:val3
+
+    return result
+}
+function quick_sort(list){
+    if(list.length <2){
+        return list
+    }
+    const pivot = getPivot(list)
+   
+    const left = list.filter(item=>item<pivot)
+    const right = list.filter(item=>item>pivot)
+    return quick_sort(left).concat([pivot],quick_sort(right))
+}
+console.log(quick_sort(list))
