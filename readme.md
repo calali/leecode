@@ -18,8 +18,13 @@
 ### 二、线性表问题
 #### 1.线性表类型和基本操作
 [线性表类型和基本操作](./linearList/base/chapter2.md)
-
 #### 2.线性表经典题目
+
+##### 数组问题
+[1. 两数之和](./linearList/exercise/array/1.js)
+[15. 三数之和](./linearList/exercise/array/15.js)
+
+
 
 ### 三、树问题
 #### 1.树类型和基本操作
