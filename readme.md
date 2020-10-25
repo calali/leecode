@@ -23,8 +23,11 @@
 ##### 数组问题
 [1. 两数之和](./linearList/exercise/array/1.js)
 [15. 三数之和](./linearList/exercise/array/15.js)
+[4. 寻找两个正序数组的中位数](./linearList/exercise/array/4.js)
 
-
+##### 链表问题
+[206. 反转一个单链表](./linearList/exercise/linkList/206.js)
+[19. 删除链表的倒数第N个节点](./linearList/exercise/linkList/19.js)
 
 ### 三、树问题
 #### 1.树类型和基本操作
