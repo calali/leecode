@@ -14,6 +14,8 @@
  * @param {number} k
  * @return {number[]}
  */
+
+//暴力求解法
 // var maxSlidingWindow = function(nums, k) {
 //     if(!nums.length ) return []
 //     if(nums.length <k) return []
@@ -26,54 +28,38 @@
 //     return result
 // };
 
-//动态规划
-// var maxSlidingWindow = function(nums, k) {
-//     if(!nums.length ) return []
-//     if(nums.length <k) return []
-//     const result = []
-//     let len = nums.length-k+1
-//     for (let index = 0; index < len; index++) {
-//         const arr = nums.slice(index,index+k)
-//         result.push(Math.max(...arr))
-//     }
-//     return result
-// };
 
-//队列法
+//单调队列法
+//把最大值存到单调队列里，单调队列首部的元素时最大的，如果比他小就出栈，保持单调队列按照从大到小的顺序
+//如果元素已经过了滑动窗口范围，则把单调队列里的元素出栈
+
 var maxSlidingWindow = function(nums, k) {
-    //边界情况处理
-    if (!nums || !nums.length || k <= 0) return []
-    if (k === 1) return nums
-  
-    let res = [], queue = []
-  
-    //开始遍历数组
-    for (let i = 0; i < nums.length; i++) {
-      
-      //当滑动窗口第2次滑动起来的时候，要把不在滑动窗口范围里的值outElem给清空了，如果没有用过的话，什么时候会出现这样的情况呢？
-      if(i >= k) {
-        // 尾部元素出滑动窗口
-        let outElem = nums[i - k]
-        console.log(123,outElem,queue);
-        if (outElem === queue[0]) queue.shift()
-        
+  if(!nums.length ||!k ) return []
+  if(k===1)return nums
+
+
+  let result = [],queue = []
+  for (let index = 0; index < nums.length; index++) {
+
+    if(index >=k){
+      const outItem = nums[index-k]
+      if(outItem === queue[0]){
+        queue.shift()
       }
-      // 当前元素进入滑动窗口，并把比它小的元素进行出栈操作
-      let inElem = nums[i]
-      //栈后面的元素比要入栈的元素小，就清空栈。这样栈一直按照从大到小的顺序排序
-      while (queue.length && queue[queue.length - 1] < inElem) queue.pop()
-
-      //把当前的元素入栈
-      queue.push(inElem)
-
-      console.log(queue);
-
-      //在滑动窗口的范围内开始存最大值，最大值始终在队列首部
-      if (i >= k - 1) res.push(queue[0])
     }
-  
-    return res
-  };
+    
 
-var a = maxSlidingWindow([1,7,6,8,],3)
-// console.log(a);
+    const inItem = nums[index]
+    while (queue.length && queue[queue.length-1] <inItem) {
+      queue.pop()
+    }
+    queue.push(inItem)
+    
+    if(index>=(k-1)){
+      result.push(queue[0])
+    }
+  }
+  return result
+};
+var a = maxSlidingWindow([7,6,5,4],3)
+console.log(a);
