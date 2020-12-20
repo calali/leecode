@@ -51,8 +51,68 @@
  * @return {number[][]}
  */
 var verticalTraversal = function(root) {
+    const map = {}
 
+    function preOrder (root,x=0,y=0){
+        const item = {
+            y,
+            val:root.val
+        }
+        
+        if(!map[x]){
+            map[x] = [item]
+        }else{
+            map[x].push(item)
+        }
+        if(root.left !== null){
+            preOrder(root.left,x-1,y-1)
+        }
+        if(root.right !== null){
+            preOrder(root.right,x+1,y-1)
+        }
+    }
+
+    preOrder(root)
+    
+    //找出最小值的下标，映射成数组的第一项
+    const minIndex = Math.min(...Object.keys(map).map(key => parseInt(key,10)))
+    const distance = minIndex >=0 ? 0: Math.abs(minIndex)
+    
+    const result = []
+    Object.keys(map).map(key=>{
+        const sortedArr = map[key].sort((a,b)=>{
+            const yIndex =  b.y -a.y
+            if(yIndex === 0){
+                return b.val-a.val
+            }
+            return yIndex
+        })
+        result[parseInt(key,10)+distance] = sortedArr.map(item=>item.val)
+    })
+
+    return result
 };
 
-//方法一，尝试前序遍历 把相同的值方进去
-//方法二，先把所有节点的值根据x存起来，再排序
+var a = {
+    val:3,
+    left:{
+        val:9,
+        left:null,
+        right:null,
+    },
+    right:{
+        val:20,
+        left:{
+            val:15,
+            left:null,
+            right:null,
+        },
+        right:{
+            val:7,
+            left:null,
+            right:null,
+        },
+    }
+}
+
+console.log(verticalTraversal(a));
