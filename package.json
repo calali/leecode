@@ -1,0 +1,23 @@
+{
+  "name": "leecode",
+  "version": "1.0.0",
+  "description": "二分查找 704",
+  "main": "392.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/calali/leecode.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/calali/leecode/issues"
+  },
+  "homepage": "https://github.com/calali/leecode#readme",
+  "devDependencies": {
+    "lodash": "^4.17.20"
+  }
+}

@@ -101,9 +101,11 @@ var leastInterval = function (tasks, n) {
             map[task] = 1
         }
     })
+    
     const [p] = Object.values(map).sort((a,b)=>b-a)
     const q = Object.values(map).filter(value =>value === p).length
     const result = (p-1)*(n+1)+q
+    console.log(result,tasks.length);
     return result< tasks.length ? tasks.length : result
 }
 

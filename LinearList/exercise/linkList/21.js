@@ -52,6 +52,7 @@ var mergeTwoLists = function(l1, l2) {
         l2.next = mergeTwoLists(l1,l2.next)
         return l2
     }
+
 };
 
 const l1 = {
@@ -76,4 +77,3 @@ const l2 = {
     // }
 }
 const result = mergeTwoLists(l1,l2)
-console.log(result);
