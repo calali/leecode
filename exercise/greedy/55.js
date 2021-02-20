@@ -30,16 +30,19 @@
  * @return {boolean}
  */
 var canJump = function(nums) {
-    let max_index = 0
+    let rightMost = 0 //最远可以到达的位置
     const len = nums.length
-    for (let index = 0; index < nums.length; index++) {
-        const current = nums[index]
-        const max = index + current
-        max_index = max
-        // console.log(max_index);
+    for (let index = 0; index < len; index++) {
+        if(index <= rightMost){
+            rightMost = Math.max(rightMost,index+nums[index])
+            if(rightMost >= len-1){
+                return true
+            }
+        }
     }
-    console.log(max_index,len);
-    return max_index >=len
+    return false
 };
-console.log(canJump([2,3,1,1,4]));
+// console.log(canJump([2,3,1,1,4]));
 // console.log(canJump([3,2,1,0,4]));
+// console.log(canJump([0]));
+console.log(canJump([2,0,0]));
