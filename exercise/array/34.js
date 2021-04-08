@@ -33,7 +33,7 @@ function binarySearch(arr,target) {
   let left = 0
   let right = len - 1
 
-  while (left < right) {
+  while (left <= right) {
     const middle = Math.round((left + right) / 2)
     if (arr[middle] > target) {
       right = middle - 1
@@ -55,22 +55,25 @@ var searchRange = function (nums, target) {
   if (targetIndex === -1){
     return [-1,-1]
   }else{
+    console.log(targetIndex);
     let min = targetIndex
     let max = targetIndex
     // 查找左边界和右边界
     for (let index = targetIndex-1; index >=0; index--) {
-      if (nums[index + 1] === target && nums[index] !== target){
-        min = index+1
+      if (nums[index] === target){
+        min = index
       }
     }
     for (let index = targetIndex+1,len = nums.length; index < len; index++) {
-      if (nums[index - 1] === target && nums[index] !== target) {
-        max = index - 1
+      if (nums[index ] === target) {
+        max = index
       }
     }
     return [min,max]
   }
 };
+// console.log(searchRange([2,2], 2));
+// console.log(searchRange([1], 1));
 console.log(searchRange([5, 7, 8, 8, 8, 10], 8));
 console.log(searchRange([5, 7, 7, 8, 8, 10], 0));
 console.log(searchRange([],0));
