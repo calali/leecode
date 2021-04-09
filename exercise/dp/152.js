@@ -1,9 +1,13 @@
 // 152. 乘积最大子数组
 // 给你一个整数数组 nums ，请你找出数组中乘积最大的连续子数组（该子数组中至少包含一个数字），并返回该子数组所对应的乘积。
 
-// 以每个当前值为连续子数组的结束。
-// 则当前的最大值是：当前数>=0时，上一个连续子数组*当前值
-// <0时，
+
+// 以每个当前值为连续子数组的结束位置。那么长度为n的数组有n个结束位置的值，我们取最大值即可。
+
+// 最大值的情况有很多种，如[1,-2,-3]对-3来说，最大值是6,来自于上一个的最小值和当前值的乘机。
+// 对[1, -2, 3]，最大值是3，来自于当前自身的值，没有取用-2的连续子列。
+
+// 因此对于每个值为结束位置，我们保存他的最大和最小值。最终得到最大值数组里的最大值。
 
 
 
@@ -22,35 +26,49 @@
  * @param {number[]} nums
  * @return {number}
  */
+// var maxProduct = function (nums) {
+//   const len = nums.length
+//   let dp = new Array(len)
+//   for (let index = 0; index < len; index++) {
+//     dp[index] = {
+//       min:1,
+//       max:1
+//     }
+//   }
+//   dp[0].max = nums[0]
+//   dp[0].min = nums[0]
+
+//   for (let index = 1; index <len; index++) {
+//     const {min,max} = dp[index-1]
+//     const currentMax = Math.max(min * nums[index], nums[index], max * nums[index])
+//     const currentMin = Math.min(min * nums[index], nums[index], max * nums[index])
+
+//     dp[index].max = currentMax
+//     dp[index].min = currentMin
+//   }
+
+//   let result = -Infinity
+//   for (let index = 0; index < len; index++) {
+//     result = Math.max(result,dp[index].max)
+//   }
+//   return result
+// };
+
 var maxProduct = function (nums) {
   const len = nums.length
-  let dp = new Array(len)
-  for (let index = 0; index < len; index++) {
-    dp[index] = {
-      min:1,
-      max:1
-    }
+
+  let min = max = ans=nums[0]
+
+  for (let index = 1;index < len;index++) {
+    const currentMax = Math.max(min * nums[index], nums[index], max * nums[index])
+    const currentMin = Math.min(min * nums[index], nums[index], max * nums[index])
+    console.log(min,max);
+    max = currentMax
+    min = currentMin
+    ans = Math.max(ans,max)
   }
-  dp[0].max = nums[0]
-  dp[0].min = nums[0]
-
-  for (let index = 1; index <len; index++) {
-    const max = Math.max(dp[index-1].max * nums[index],nums[index])
-    const min = Math.min(dp[index-1].min * nums[index], nums[index])
-    console.log(index, max,min);
-    dp[index].max = max
-
-    dp[index].max = min
-    console.log(dp);
-  }
-
-  // console.log(dp[1].max);
-
-  // let result = 0
-  // for (let index = 0; index < len; index++) {
-  //   result = Math.max(result,dp[index].max)
-  // }
-  // return result
+  return ans
 };
 
-console.log(maxProduct([2, 3]));
+// console.log(maxProduct([-2,-3])===6);
+console.log(maxProduct([2, 3, -2, 4]));
