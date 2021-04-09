@@ -56,7 +56,6 @@
 
 var maxProduct = function (nums) {
   const len = nums.length
-
   let min = max = ans=nums[0]
 
   for (let index = 1;index < len;index++) {
