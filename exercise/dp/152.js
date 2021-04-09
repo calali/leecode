@@ -61,7 +61,6 @@ var maxProduct = function (nums) {
   for (let index = 1;index < len;index++) {
     const currentMax = Math.max(min * nums[index], nums[index], max * nums[index])
     const currentMin = Math.min(min * nums[index], nums[index], max * nums[index])
-    console.log(min,max);
     max = currentMax
     min = currentMin
     ans = Math.max(ans,max)
