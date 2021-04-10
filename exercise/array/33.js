@@ -20,6 +20,9 @@
 // 输入：nums = [1], target = 0
 // 输出：-1
 
+// 二分查找每次middle将数组一一分为二，其中一个数组是有序的，另一个是部分有序的。
+// 如果target落在有序数组中，则继续进行二分查找。
+// 如果target落在无序数组中，则子问题与原问题一致，继续二分这个过程。
 
 // 提示：
 
@@ -38,5 +41,33 @@
  * @return {number}
  */
 var search = function (nums, target) {
-
+  const len = nums.length
+  let l = 0,r = len -1
+  while (l<=r) {
+    const middle = Math.floor((l+r)/2)
+    // console.log('middle',middle);
+    //是否是有序数组
+    if(nums[middle] === target) return middle
+    //0...middle是有序数组
+    if (nums[l] <= nums[middle]) {
+      if (target >= nums[l] && target <nums[middle]){
+        r = middle -1
+      //不落在这个范围里
+      }else{
+        l = middle +1
+      }
+    //0...middle不是有序数组，middle+1...n-1是有序数组
+    }else{
+      if (target >= nums[middle+1] && target <= nums[len-1]) {
+        l = middle + 1
+        //不落在这个范围里
+      } else {
+        r = middle - 1
+      }
+    }
+  }
+  return -1
 };
+console.log(search([4, 5, 6, 7, 0, 1, 2],0));
+console.log(search([1, 3], 3));
+console.log(search([5, 1, 3], 3));
