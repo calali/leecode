@@ -6,11 +6,12 @@
     "configurations": [
 
 
+
       {
         "type": "node",
         "request": "launch",
         "name": "Launch Program",
-        "program": "${workspaceFolder}/exercise/dp/152.js"
+        "program": "${workspaceFolder}/exercise/design/146.js"
       }
     ]
   }
