@@ -11,7 +11,7 @@
         "type": "node",
         "request": "launch",
         "name": "Launch Program",
-        "program": "${workspaceFolder}/exercise/design/146.js"
+        "program": "${workspaceFolder}/exercise/linkList/2.js"
       }
     ]
   }

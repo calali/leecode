@@ -42,48 +42,71 @@
 // 0 <= value <= 104
 // 最多调用 3 * 104 次 get 和 put
 
+class DoubleLinkedListNode {
+  constructor(key,value){
+    this.key = key
+    this.value = value
+    this.next = null
+    this.prev = null
+  }
+}
+
 class LRUCache {
   constructor(limit){
-    this.root = {}
-    this.limit = limit
-    this.currentLength = 0
-    this.usedCount = {}
+    this.capacity = limit
+    this.cache = {}
+    this.dummyHead = new DoubleLinkedListNode(null,null)
+    this.dummyEnd = new DoubleLinkedListNode(null, null)
+    this.dummyEnd.prev = this.dummyHead
+    this.dummyHead.next = this.dummyEnd
   }
-  get(key){
-    if(this.root[key] !== undefined){
-      this.updateCout(key, this.usedCount[key]-1)
-      console.log('get', this.root[key]);
-      return this.root[key]
-    }
-    console.log('get', -1);
-    return -1
+  _removeNode(node){
+    //删除节点
+    node.prev.next = node.next;
+    node.next.prev = node.prev;
+    node.prev = null;
+    node.next = null;
   }
-  updateCout(key,value){
-    this.usedCount[key] = value
+  _addToHead(node){
+    const head = this.dummyHead.next;
+    node.next = head;
+    head.prev = node;
+    node.prev = this.dummyHead;
+    this.dummyHead.next = node;
   }
 
+  _isFull(){
+      return Object.keys(this.cache).length === this.capacity
+  }
   put(key,value){
-    if (this.currentLength === this.limit){
-      //删除最少使用的key，即usedCount里值最小的，这个怎么在O(1)时间内拿到呢？
-      //遍历找到最小的
-      let min = Infinity
-      let targetKey = ''
-      Object.keys(this.usedCount).map(key => {
-        if (this.usedCount[key] < min) {
-          min = this.usedCount[key]
-          targetKey = key
-        }
-      })
-      delete this.usedCount[targetKey]
-      delete this.root[targetKey]
-      this.currentLength -= 1
+    //如果存在cache中,更新value和位置
+    if(this.cache[key]){
+      const node = this.cache[key]
+      node.value = value
+      this._removeNode(node)
+      this._addToHead(node)
+    }else
+    //不存在cache中
+    if(this._isFull()){
+      //删除最后一个
+      const lastNode = this.dummyEnd.prev
+      delete this.cache[lastNode.key]
+      this._removeNode(lastNode)
     }
-    this.root[key] = value
-    this.currentLength +=1
-    if(this.usedCount[key]===undefined){
-      this.usedCount[key] = 0
+    //存入到第一个的位置
+    const newFirstNode = new DoubleLinkedListNode(key,value)
+    this._addToHead(newFirstNode)
+    this.cache[key]= newFirstNode
+  }
+
+  get(key) {
+    if (this.cache[key]) {
+      const node = this.cache[key]
+      this._removeNode(node)
+      this._addToHead(node)
+      return node.value
     }
-    console.log('put', this.root);
+    return -1
   }
 }
 const lRUCache = new LRUCache(2);
