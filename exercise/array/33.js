@@ -34,6 +34,23 @@
 
 
 // 进阶：你可以设计一个时间复杂度为 O(log n) 的解决方案吗？
+// function binarySearch(arr,target) {
+//   const len = arr.length
+//   let left = 0
+//   let right = len - 1
+
+//   while (left <= right) {
+//     const middle = Math.round((left + right) / 2)
+//     if (arr[middle] > target) {
+//       right = middle - 1
+//     } else if (arr[middle] < target) {
+//       left = middle + 1
+//     } else {
+//       return middle
+//     }
+//   }
+//   return -1
+// }
 
 /**
  * @param {number[]} nums
