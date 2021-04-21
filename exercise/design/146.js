@@ -57,8 +57,8 @@ class LRUCache {
     this.cache = {}
     this.dummyHead = new DoubleLinkedListNode(null,null)
     this.dummyEnd = new DoubleLinkedListNode(null, null)
-    this.dummyEnd.prev = this.dummyHead
     this.dummyHead.next = this.dummyEnd
+    this.dummyEnd.prev = this.dummyHead
   }
   _removeNode(node){
     //删除节点
@@ -66,7 +66,9 @@ class LRUCache {
     node.next.prev = node.prev;
     node.prev = null;
     node.next = null;
+    return node
   }
+
   _addToHead(node){
     const head = this.dummyHead.next;
     node.next = head;
@@ -85,8 +87,8 @@ class LRUCache {
       node.value = value
       this._removeNode(node)
       this._addToHead(node)
-    }else
-    //不存在cache中
+    }else{
+      //不存在cache中
     if(this._isFull()){
       //删除最后一个
       const lastNode = this.dummyEnd.prev
@@ -97,13 +99,13 @@ class LRUCache {
     const newFirstNode = new DoubleLinkedListNode(key,value)
     this._addToHead(newFirstNode)
     this.cache[key]= newFirstNode
+    }
   }
 
   get(key) {
     if (this.cache[key]) {
       const node = this.cache[key]
-      this._removeNode(node)
-      this._addToHead(node)
+      this._addToHead(this._removeNode(node))
       return node.value
     }
     return -1
