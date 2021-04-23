@@ -7,11 +7,12 @@
 
 
 
+
       {
         "type": "node",
         "request": "launch",
         "name": "Launch Program",
-        "program": "${workspaceFolder}/exercise/linkList/2.js"
+        "program": "${workspaceFolder}/exercise/string/438.js"
       }
     ]
   }
