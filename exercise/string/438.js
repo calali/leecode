@@ -73,11 +73,11 @@ var findAnagrams = function (s, p) {
   }
 
   for (let i = 0; i < len; i++) {
-    const window = s.slice(i,i + size)
+    const win = s.slice(i,i + size)
     if(i === 1){
       debugger
     }
-    const compareMap = getStrMap(window)
+    const compareMap = getStrMap(win)
     const flag = isSameMap(compareMap)
     if (flag){
       result.push(i)
@@ -86,4 +86,70 @@ var findAnagrams = function (s, p) {
   return result
 };
 
+
+// 第一种情况，每次窗口移动一位，整个子字符串都得进行比较，重复比较多，导致时间复杂度高。
+
+// 考虑将每次窗口移动一位，只进行一次比较。而不是O(n)的比较
+// var findAnagrams = function (s, p) {
+//   const res = [], win = {}, need = {}, pLen = p.length;
+//   let len = 0, val = 0;
+//   for (const x of p) {
+//       if (need[x] === undefined) {
+//           need[x] = win[x] = 0;
+//           len++;
+//       }
+//       need[x]++;
+//   }
+//   for (let i = 0; i < s.length; i++) {
+//       const j = i - pLen;
+//       if (s[i] in need && ++win[s[i]] === need[s[i]]) val++;
+//       if (s[j] in need && win[s[j]]-- === need[s[j]]) val--;
+//       if (val === len) res.push(j + 1);
+//   }
+//   return res;
+// };
+
+
+/**
+ * @param {string} s
+ * @param {string} p
+ * @return {number[]}
+ */
+ var findAnagrams = function(s, p) {
+  const wholeStrLength = s.length
+  const targetStrLength = p.length
+  const res = []
+  const win = {}
+  const targetMap = {} //p里每个字符对应的数量
+  let targetCharCount = 0 //p里字符的种类，比如'aa'是1
+  let winCharCount = 0
+  
+  for (const char of p) {
+    if(targetMap[char] === undefined){
+      targetMap[char] = 0
+      win[char] = 0
+      targetCharCount+=1
+    }
+    targetMap[char]+=1
+  }
+
+
+  for (let right = 0; right <wholeStrLength ; right++) {
+    const left = right - targetStrLength
+    const rightChar = s[right]
+    const leftChar = s[left]
+    //rightChar在PStrMap就
+    if(targetMap[rightChar] && ++win[rightChar] === targetMap[rightChar]) winCharCount++
+    if(targetMap[leftChar] && win[leftChar]-- === targetMap[leftChar]) winCharCount--
+    if(winCharCount === targetCharCount) res.push(left + 1)
+  }
+
+  return res
+};
+
+// 先自增，然后判断是否符合目标数量。符合就winCharCount自增。
+
+
+
 console.log(findAnagrams("cbaebabacd", "abc"));
+// console.log(findAnagrams("babeeeabbcd", "abb"));
