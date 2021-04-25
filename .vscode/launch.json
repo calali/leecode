@@ -8,11 +8,12 @@
 
 
 
+
       {
         "type": "node",
         "request": "launch",
         "name": "Launch Program",
-        "program": "${workspaceFolder}/exercise/string/438.js"
+        "program": "${workspaceFolder}/exercise/dfs/22.js"
       }
     ]
   }
