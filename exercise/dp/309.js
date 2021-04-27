@@ -14,11 +14,11 @@ const { max } = require("lodash");
 // // 解释: 对应的交易状态为: [买入, 卖出, 冷冻期, 买入, 卖出]
 
 
-// dp[i]表示当前的最大利润。每天对股票的状态是持有或不持有。
+dp[i]表示当前的最大利润。每天对股票的状态是持有或不持有。
 
-// dp[i][0]表示当前不持有股票。当天不持有股票，可能性1当天股票卖了dp[i][0] =dp[i-1][1] + price[i]，可能性2昨天就没有股票dp[i][0] =dp[i-1][0]
+dp[i][0]表示当前不持有股票。当天不持有股票，可能性1当天股票卖了dp[i][0] =dp[i-1][1] + price[i]，可能性2昨天就没有股票dp[i][0] =dp[i-1][0]
 
-// dp[i][1]表示当前持有股票。当天持有股票，可能是昨天就有dp[i][1] =dp[i-1][1]，可能是今天买的dp[i][1] =dp[i-1][0] - price[i]
+dp[i][1]表示当前持有股票。当天持有股票，可能是昨天就有dp[i][1] =dp[i-1][1]，可能是今天买的dp[i][1] =dp[i-2][0] - price[i]
 
 // 初始化dp[i][0]是0，p[i][1]是0
 // /**
@@ -36,10 +36,8 @@ const { max } = require("lodash");
 
     for (let i = 1; i < len; i++) {
         dp[i][0] = Math.max(dp[i-1][1] + prices[i],dp[i-1][0])
-        dp[i][1] = Math.max(dp[i-1][0] - prices[i],dp[i-1][1])
+        dp[i][1] = Math.max(((i -2) >=0 ? dp[i-2][0] : 0) - prices[i],dp[i-1][1])
     }
-
-    console.log(dp);
 
     return Math.max(...dp[len - 1])
 };
