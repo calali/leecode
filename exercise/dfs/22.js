@@ -17,30 +17,30 @@
 
 // 1 <= n <= 8
 
-// 生成n组有效括号，首先考虑生成n组括号。可以进行深度搜索，把所有可能的组合找出来，代码如下:
+生成n组有效括号，首先考虑生成n组括号。可以进行深度搜索，把所有可能的组合找出来，代码如下:
 
 /**
  * @param {number} n
  * @return {string[]}
  */
-// var generateParenthesis = function (n) {
-//   const res = []
+var generateParenthesis = function (n) {
+  const res = []
 
-//   function dfs (str) {
-//     if(str.length === 2 * n){
-//       res.push(str)
-//       return
-//     }
-//     dfs(`${str}(`)
-//     dfs(`${str})`)
-//   }
+  function dfs (str) {
+    if(str.length === 2 * n){
+      res.push(str)
+      return
+    }
+    dfs(`${str}(`)
+    dfs(`${str})`)
+  }
 
-//   dfs('')
+  dfs('')
 
-//   return res
-// };
+  return res
+};
 
-// 在这个过程中，生成了无效的括号组合，要避免需要剪枝。对于生成无效括号的要及时停止，写出如下代码：
+在这个过程中，生成了无效的括号组合，要避免需要剪枝。对于生成无效括号的要及时停止，写出如下代码：
 
 var generateParenthesis = function (n) {
   const res = []
