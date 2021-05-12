@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/calali/leecode#readme",
   "devDependencies": {
-    "lodash": "^4.17.20"
+    "lodash": "^4.17.21"
   }
 }
